@@ -231,7 +231,7 @@ sub process_monster {
       $the_mon=~/MON4\(".*",".*",".*",S_(.*?),LVL\((.*?)\),\(?(.*?)\)?,A\((.*)\),SIZ\((.*)\),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?)\),$/;
   }
   else {
-    print STDERR "Unexpected stype: $stype\n"
+    print STDERR "Unexpected stype: $stype\n";
   }
 
   $col= "NO_COLOR" if ($name eq "ghost" || $name eq "shade");
@@ -290,7 +290,7 @@ sub parse_level {
 
 sub parse_gen {
   my $gens=shift;
-  my $gensnum=$gens=~/(\d+)/;
+  my ($gensnum)=$gens=~/(\d+)/;
   if($gensnum eq '') {
     my $g=0;
   } else {
@@ -300,7 +300,7 @@ sub parse_gen {
 
 sub parse_difficulty {
   my $diffis=shift;
-  my $diffinum=$diffis=~/(\d+)/;
+  my ($diffinum)=$diffis=~/(\d+)/;
 }
 
 # Parse an A(ATTK(),...) construct
