@@ -179,6 +179,9 @@ my %damage =
 
  AD_SAMU=>	" amulet-stealing",
  AD_CURS=>	" intrinsic-stealing",
+
+ AD_PSYC=>  " psychic",
+ AD_LARV=>  " inject larvae"
 );
 
 # Some monster names appear twice (were-creatures).  We use the
@@ -420,10 +423,10 @@ EOF
 # For each monster, create just 1 row
 # | [[giant fly]] || {{orange|a}} || 1 || 3, appears in small groups || 3 || Bite 1d3
 while($m=shift @monsters) {
-  print INDEX "[[$m->{NAME}]] || {{$colors{$m->{COLOR}}|$symbols{$m->{SYMBOL}}}} || $m->{LEVEL}->{LVL} || $m->{GEN} || $m->{DIFFICULTY} || ";
+  print INDEX "| [[$m->{NAME}]] || {{$colors{$m->{COLOR}}|$symbols{$m->{SYMBOL}}}} || $m->{LEVEL}->{LVL} || $m->{GEN} || $m->{DIFFICULTY} || ";
   if (scalar(@{$m->{ATK}})) {
     for $a (@{$m->{ATK}}) {
-      print INDEX "$attacks{$a->{AT}}: $a->{N}d$a->{D} $damage{$a->{AD}}, "
+      print INDEX "$attacks{$a->{AT}} $a->{N}d$a->{D} $damage{$a->{AD}}, "
     }
   }
   print INDEX "\n|-\n"
@@ -679,5 +682,3 @@ close INDEX
 #     }
 #   }
 # }
-
-
