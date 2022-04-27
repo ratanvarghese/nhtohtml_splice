@@ -100,7 +100,6 @@ my %colors=
    CLR_BRIGHT_MAGENTA => "brightmagenta",
    CLR_BRIGHT_CYAN  => "brightcyan",
    CLR_WHITE  => "white",
-   '' => "white"
 );
 
 
@@ -122,66 +121,89 @@ my %attacks =
    AT_GAZE => "Gaze",
    AT_TENT => "Tentacles",
    AT_WEAP => "Weapon",
-   AT_MAGC => "Magic"
+   AT_MAGC => "Magic",
+   AT_SCRE => "Scream",
+   AT_VOLY => "Spike volley"
   );
 
 # TODO: Again, parse the damage comments in the header and just fix
 # whatever seems broken.
 my %damage =
   (
- AD_PHYS=>	" physical",
- AD_MAGM=>	" magic missile",
- AD_FIRE=>	" fire",
- AD_COLD=>	" frost",
- AD_SLEE=>	" sleep ray",
- AD_DISN=>	" disintegration",
- AD_ELEC=>	" shock",
- AD_DRST=>	" poison (drain strength)",
- AD_ACID=>	" acid",
- AD_SPC1=>	" buzz",
- AD_SPC2=>	" buzz",
- AD_BLND=>	" blind",
- AD_STUN=>	" stun",
- AD_SLOW=>	" slow",
- AD_PLYS=>	" paralysis",
- AD_DRLI=>	" drain life",
- AD_DREN=>	" drain energy ",
- AD_LEGS=>	" wound legs",
- AD_STON=>	" stoning",
- AD_STCK=>	" sticky",
- AD_SGLD=>	" steal gold",
- AD_SITM=>	" steal item",
- AD_SEDU=>	" seduce",
- AD_TLPT=>	" teleport",
- AD_RUST=>	" rust",
- AD_CONF=>	" confusion",
- AD_DGST=>	" digestion",
- AD_HEAL=>	" heal",
- AD_WRAP=>	" drowning",
- AD_WERE=>	" lycanthropy ",
- AD_DRDX=>	" poison (drains dexterity)",
- AD_DRCO=>	" poison (drains constitution)",
- AD_DRIN=>	" int drain",
- AD_DISE=>	" disease",
- AD_DCAY=>	" decays organic items",
- AD_SSEX=>	" seduction",
- AD_HALU=>	" hallucinate",
- AD_DETH=>	"", # for Death only
- AD_PEST=>	"", #" for Pestilence only ",
- AD_FAMN=>	"", #" for Famine only ",
- AD_SLIM=>	" sliming",
- AD_ENCH=>	" disenchant",
- AD_CORR=>	" corrosion",
+  AD_PHYS => "physical",
+  AD_MAGM => "magic missile",
+  AD_FIRE => "fire",
+  AD_COLD => "frost",
+  AD_SLEE => "sleep",
+  AD_DISN => "disintegration",
+  AD_ELEC => "lightning",
+  AD_DRST => "poison (drain strength)",
+  AD_ACID => "acid",
+  AD_LOUD => "sonic",
+  AD_PSYC => "psychic",
+  AD_BLND => "blind",
+  AD_STUN => "stunning",
+  AD_SLOW => "slowing",
+  AD_PLYS => "paralysis",
+  AD_DRLI => "drain life",
+  AD_DREN => "drain energy",
+  AD_LEGS => "wound legs",
+  AD_STON => "stoning",
+  AD_STCK => "sticky",
+  AD_SGLD => "steal gold",
+  AD_SITM => "steal item",
+  AD_SEDU => "seduction",
+  AD_TLPT => "teleport",
+  AD_RUST => "rust",
+  AD_CONF => "confusion",
+  AD_DGST => "digestion",
+  AD_HEAL => "heal",
+  AD_WRAP => "", #stick for eels
+  AD_WERE => "lycanthropy",
+  AD_DRDX => "poison (drain dexterity)",
+  AD_DRCO => "poison (drain constitution)",
+  AD_DRIN => "int drain",
+  AD_DISE => "disease",
+  AD_DCAY => "decays organics items",
+  AD_SSEX => "seduction",
+  AD_HALU => "hallucinate",
+  AD_DETH => "plus death",
+  AD_PEST => "plus disease",
+  AD_FAMN => "plus hunger",
+  AD_SLIM => "sliming",
+  AD_ENCH => "disenchant",
+  AD_CORR => "corrosion",
+  AD_VOID => "disintegration",
+  AD_MEMR => "forget items",
+  AD_QUIL => "quills",
+  AD_PITS => "earthquake",
+  AD_CNCL => "cancel",
+  AD_DSRM => "disarm",
+  AD_WIND => "wind",
+  AD_CALM => "calm",
+  AD_LUCK => "drain luck",
+  AD_HYDR => "regrow heads",
+  AD_MTRL => "change material",
+  AD_LOST => "get lost",
+  AD_TCKL => "tickle",
+  AD_POLY => "polymorph",
+  AD_LARV => "inject larvae",
+  AD_SKEL => "generate skeletons",
+  AD_HNGY => "hunger",
+  AD_POTN => "random potion effect",
+  AD_KDNP => "kidnap",
+  AD_FUMB => "fumbling",
+  AD_CLOB => "knockback",
+  AD_WTHR => "withering",
+  AD_LAWS => "laws",
+  AD_VORP => "beheading",
+  AD_FEAR => "fear",
+  AD_CLRC => "spell-casting (clerical)",
+  AD_SPEL => "spell-casting",
+  AD_RBRE => "random breath weapon",
+  AD_SAMU => "amulet-stealing",
+  AD_CURS => "intrinsic-stealing",
 
- AD_CLRC=>	" spell-casting (clerical)",
- AD_SPEL=>	" spell-casting",
- AD_RBRE=>	" random breath weapon",
-
- AD_SAMU=>	" amulet-stealing",
- AD_CURS=>	" intrinsic-stealing",
-
- AD_PSYC=>  " psychic",
- AD_LARV=>  " inject larvae"
 );
 
 # Some monster names appear twice (were-creatures).  We use the
@@ -220,7 +242,7 @@ sub process_monster {
   }
   elsif($stype == 2) {
     ($sym,$lvl,$gen,$atk,$siz,$mr1,$mr2,$flg1,$flg2,$flg3,$flgm,$d,$col) = 
-      $the_mon=~/MON2\(".*",S_(.*?),LVL\((.*?)\),\(?(.*?)\)?,A\((.*)\),SIZ\((.*)\),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?)\),$/;
+      $the_mon=~/MON2\(".*",S_(.*?),LVL\((.*?)\),\(?(.*?)\)?,A\((.*)\),SIZ\((.*)\),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?)\),$/;
   }
   elsif($stype == 3) {
     ($sym,$lvl,$gen,$atk,$siz,$mr1,$mr2,$flg1,$flg2,$flg3,$d,$col) = 
@@ -228,7 +250,7 @@ sub process_monster {
   }
   elsif($stype == 4) {
     ($sym,$lvl,$gen,$atk,$siz,$mr1,$mr2,$flg1,$flg2,$flg3,$flgm,$d,$col) = 
-      $the_mon=~/MON4\(".*",".*",".*",S_(.*?),LVL\((.*?)\),\(?(.*?)\)?,A\((.*)\),SIZ\((.*)\),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?)\),$/;
+      $the_mon=~/MON4\(".*",".*",".*",S_(.*?),LVL\((.*?)\),\(?(.*?)\)?,A\((.*)\),SIZ\((.*)\),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?)\),$/;
   }
   else {
     print STDERR "Unexpected stype: $stype\n";
@@ -634,7 +656,7 @@ close INDEX
 #   float: left;
 # /*  position: absolute;
 #   top: 0px;
-#   left: 0px; */
+#   left: 0px;",
 # }
 
 # .convey {
