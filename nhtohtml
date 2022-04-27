@@ -106,6 +106,7 @@ my %colors=
 # TODO: Parse the attacks from the comments in the appropriate header.
 my %attacks = 
   (
+   AT_NONE => "Passive",
    AT_CLAW => "Claw",
    AT_BITE => "Bite",
    AT_KICK => "Kick",
@@ -133,7 +134,7 @@ my %damage =
   AD_PHYS => "physical",
   AD_MAGM => "magic missile",
   AD_FIRE => "fire",
-  AD_COLD => "frost",
+  AD_COLD => "cold",
   AD_SLEE => "sleep",
   AD_DISN => "disintegration",
   AD_ELEC => "lightning",
